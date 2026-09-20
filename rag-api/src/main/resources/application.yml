@@ -8,6 +8,9 @@ spring:
     virtual:
       enabled: true
 
+  profiles:
+    active: groq
+
 management:
   endpoints:
     web:
