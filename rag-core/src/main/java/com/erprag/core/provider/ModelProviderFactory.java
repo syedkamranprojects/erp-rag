@@ -43,6 +43,13 @@ public final class ModelProviderFactory {
                     .modelName(settings.modelName())
                     .timeout(OLLAMA_TIMEOUT)
                     .build();
+            // Cerebras and Groq both expose an OpenAI-compatible chat completions API,
+            // so no separate LangChain4j integration module is needed for either.
+            case CEREBRAS, GROQ -> OpenAiChatModel.builder()
+                    .baseUrl(settings.baseUrl())
+                    .apiKey(settings.apiKey())
+                    .modelName(settings.modelName())
+                    .build();
         };
     }
 
@@ -64,6 +71,8 @@ public final class ModelProviderFactory {
                     .build();
             case ANTHROPIC -> throw new IllegalArgumentException(
                     "Anthropic has no embedding API; configure a different embedding provider (e.g. OpenAI or Ollama)");
+            case CEREBRAS, GROQ -> throw new IllegalArgumentException(
+                    settings.type() + " has no embedding API; configure a different embedding provider (e.g. OpenAI or Ollama)");
         };
     }
 }

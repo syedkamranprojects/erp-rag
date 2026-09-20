@@ -100,7 +100,8 @@ final class RagTools {
                 {"type":"object","properties":{
                     "entityCode":{"type":"string"},
                     "username":{"type":"string"},
-                    "password":{"type":"string","description":"At least 8 characters"}
+                    "password":{"type":"string","description":"At least 8 characters"},
+                    "role":{"type":"string","enum":["ADMIN","MEMBER"],"description":"ADMIN can also upload documents; defaults to MEMBER"}
                 },"required":["entityCode","username","password"],"additionalProperties":false}
                 """)
                 .description("Create a login for an entity, scoped only to that entity's documents.")
@@ -111,7 +112,8 @@ final class RagTools {
                     String entityCode = stringArg(request, "entityCode");
                     String username = stringArg(request, "username");
                     String password = stringArg(request, "password");
-                    KnowledgeBaseUser user = ragService.createUser(entityCode, username, password);
+                    String role = optionalStringArg(request, "role");
+                    KnowledgeBaseUser user = ragService.createUser(entityCode, username, password, role == null || role.isBlank() ? "MEMBER" : role);
                     return McpSchema.CallToolResult.builder()
                             .addTextContent("Created user '" + user.username() + "' for entity '" + entityCode + "'")
                             .build();

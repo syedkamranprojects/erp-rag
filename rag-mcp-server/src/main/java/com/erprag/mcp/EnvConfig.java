@@ -29,6 +29,8 @@ final class EnvConfig {
             case ANTHROPIC -> new ProviderSettings(chatType, env("ANTHROPIC_API_KEY", ""), env("RAG_LLM_MODEL", "claude-sonnet-4-5"), null, null);
             case AZURE_OPENAI -> new ProviderSettings(chatType, env("AZURE_OPENAI_API_KEY", ""), null, env("AZURE_OPENAI_ENDPOINT", ""), env("AZURE_OPENAI_CHAT_DEPLOYMENT", ""));
             case OLLAMA -> new ProviderSettings(chatType, null, env("RAG_LLM_MODEL", "llama3.1"), env("OLLAMA_BASE_URL", "http://localhost:11434"), null);
+            case CEREBRAS -> new ProviderSettings(chatType, env("CEREBRAS_API_KEY", ""), env("RAG_LLM_MODEL", "llama-4-scout-17b-16e-instruct"), env("CEREBRAS_BASE_URL", "https://api.cerebras.ai/v1"), null);
+            case GROQ -> new ProviderSettings(chatType, env("GROQ_API_KEY", ""), env("RAG_LLM_MODEL", "openai/gpt-oss-120b"), env("GROQ_BASE_URL", "https://api.groq.com/openai/v1"), null);
         };
 
         ProviderType embeddingType = ProviderType.valueOf(env("RAG_EMBEDDING_PROVIDER", "openai").toUpperCase());
@@ -37,6 +39,8 @@ final class EnvConfig {
             case AZURE_OPENAI -> new ProviderSettings(embeddingType, env("AZURE_OPENAI_API_KEY", ""), null, env("AZURE_OPENAI_ENDPOINT", ""), env("AZURE_OPENAI_EMBEDDING_DEPLOYMENT", ""));
             case OLLAMA -> new ProviderSettings(embeddingType, null, env("RAG_EMBEDDING_MODEL", "nomic-embed-text"), env("OLLAMA_BASE_URL", "http://localhost:11434"), null);
             case ANTHROPIC -> throw new IllegalArgumentException("Anthropic cannot be used as the embedding provider");
+            case CEREBRAS -> throw new IllegalArgumentException("Cerebras cannot be used as the embedding provider");
+            case GROQ -> throw new IllegalArgumentException("Groq cannot be used as the embedding provider");
         };
 
         return new RagConfig(

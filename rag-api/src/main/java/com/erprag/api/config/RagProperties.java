@@ -226,6 +226,10 @@ public class RagProperties {
         private ProviderSection azureOpenai = new ProviderSection();
         @NestedConfigurationProperty
         private ProviderSection ollama = new ProviderSection();
+        @NestedConfigurationProperty
+        private ProviderSection cerebras = new ProviderSection();
+        @NestedConfigurationProperty
+        private ProviderSection groq = new ProviderSection();
 
         public String getProvider() {
             return provider;
@@ -249,6 +253,14 @@ public class RagProperties {
 
         public ProviderSection getOllama() {
             return ollama;
+        }
+
+        public ProviderSection getCerebras() {
+            return cerebras;
+        }
+
+        public ProviderSection getGroq() {
+            return groq;
         }
     }
 

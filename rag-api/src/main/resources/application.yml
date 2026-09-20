@@ -55,6 +55,14 @@ rag:
     ollama:
       base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
       model: ${RAG_LLM_MODEL:llama3.1}
+    cerebras:
+      base-url: ${CEREBRAS_BASE_URL:https://api.cerebras.ai/v1}
+      api-key: ${CEREBRAS_API_KEY:}
+      model: ${RAG_LLM_MODEL:llama-4-scout-17b-16e-instruct}
+    groq:
+      base-url: ${GROQ_BASE_URL:https://api.groq.com/openai/v1}
+      api-key: ${GROQ_API_KEY:}
+      model: ${RAG_LLM_MODEL:openai/gpt-oss-120b}
 
   embedding:
     provider: ${RAG_EMBEDDING_PROVIDER:openai}

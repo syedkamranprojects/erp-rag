@@ -52,6 +52,10 @@ public class RagServiceConfiguration {
                     properties.getLlm().getAzureOpenai().getDeploymentName());
             case OLLAMA -> new ProviderSettings(type, null,
                     properties.getLlm().getOllama().getModel(), properties.getLlm().getOllama().getBaseUrl(), null);
+            case CEREBRAS -> new ProviderSettings(type, properties.getLlm().getCerebras().getApiKey(),
+                    properties.getLlm().getCerebras().getModel(), properties.getLlm().getCerebras().getBaseUrl(), null);
+            case GROQ -> new ProviderSettings(type, properties.getLlm().getGroq().getApiKey(),
+                    properties.getLlm().getGroq().getModel(), properties.getLlm().getGroq().getBaseUrl(), null);
         };
     }
 
@@ -66,6 +70,8 @@ public class RagServiceConfiguration {
             case OLLAMA -> new ProviderSettings(type, null,
                     properties.getEmbedding().getOllama().getModel(), properties.getEmbedding().getOllama().getBaseUrl(), null);
             case ANTHROPIC -> throw new IllegalArgumentException("Anthropic cannot be used as the embedding provider");
+            case CEREBRAS -> throw new IllegalArgumentException("Cerebras cannot be used as the embedding provider");
+            case GROQ -> throw new IllegalArgumentException("Groq cannot be used as the embedding provider");
         };
     }
 }
