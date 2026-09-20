@@ -1,0 +1,68 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rag-api
+  threads:
+    virtual:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+rag:
+  storage:
+    base-path: ${RAG_STORAGE_PATH:./data/uploads}
+  admin:
+    api-key: ${RAG_ADMIN_API_KEY:changeme-admin-key}
+  jwt:
+    secret: ${RAG_JWT_SECRET:changeme-jwt-secret-changeme-jwt-secret}
+    expiry-minutes: ${RAG_JWT_EXPIRY_MINUTES:120}
+  chunking:
+    max-segment-size-chars: ${RAG_CHUNK_SIZE:1000}
+    max-overlap-chars: ${RAG_CHUNK_OVERLAP:100}
+  retrieval:
+    max-results: ${RAG_MAX_RESULTS:5}
+    min-score: ${RAG_MIN_SCORE:0.6}
+  chat-memory:
+    max-messages: ${RAG_CHAT_MEMORY_MAX_MESSAGES:20}
+
+  db:
+    host: ${PGVECTOR_HOST:localhost}
+    port: ${PGVECTOR_PORT:5432}
+    database: ${PGVECTOR_DB:ragdb}
+    user: ${PGVECTOR_USER:rag}
+    password: ${PGVECTOR_PASSWORD:rag}
+
+  llm:
+    provider: ${RAG_LLM_PROVIDER:openai}
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      model: ${RAG_LLM_MODEL:gpt-4o-mini}
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:}
+      model: ${RAG_LLM_MODEL:claude-sonnet-4-5}
+    azure-openai:
+      endpoint: ${AZURE_OPENAI_ENDPOINT:}
+      api-key: ${AZURE_OPENAI_API_KEY:}
+      deployment-name: ${AZURE_OPENAI_CHAT_DEPLOYMENT:}
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      model: ${RAG_LLM_MODEL:llama3.1}
+
+  embedding:
+    provider: ${RAG_EMBEDDING_PROVIDER:openai}
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      model: ${RAG_EMBEDDING_MODEL:text-embedding-3-small}
+    azure-openai:
+      endpoint: ${AZURE_OPENAI_ENDPOINT:}
+      api-key: ${AZURE_OPENAI_API_KEY:}
+      deployment-name: ${AZURE_OPENAI_EMBEDDING_DEPLOYMENT:}
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      model: ${RAG_EMBEDDING_MODEL:nomic-embed-text}

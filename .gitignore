@@ -1,0 +1,26 @@
+# Build output
+target/
+*.class
+
+# Maven shade plugin artifact
+dependency-reduced-pom.xml
+
+# Runtime upload storage (created at runtime by the app)
+data/
+rag-api/data/
+rag-mcp-server/data/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
