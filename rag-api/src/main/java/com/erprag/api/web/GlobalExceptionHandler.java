@@ -4,6 +4,7 @@ import com.erprag.core.exception.AuthenticationException;
 import com.erprag.core.exception.DocumentNotFoundException;
 import com.erprag.core.exception.EntityAlreadyExistsException;
 import com.erprag.core.exception.EntityNotFoundException;
+import dev.langchain4j.exception.LangChain4jException;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +53,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleIllegalArgument(IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+    }
+
+    /** The configured chat/embedding provider (OpenAI, Groq, Cerebras, ...) rejected or failed the request. */
+    @ExceptionHandler(LangChain4jException.class)
+    public ResponseEntity<Map<String, String>> handleProviderError(LangChain4jException e) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                .body(Map.of("error", "The configured AI provider rejected the request: " + e.getMessage()));
     }
 }

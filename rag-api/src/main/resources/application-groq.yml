@@ -1,0 +1,10 @@
+# Activate with SPRING_PROFILES_ACTIVE=groq (or --spring.profiles.active=groq).
+# Sets Groq as the chat provider; embeddings still come from whatever
+# rag.embedding.provider resolves to in application.yml (Groq has no embedding API).
+rag:
+  llm:
+    provider: groq
+    groq:
+      base-url: ${GROQ_BASE_URL:https://api.groq.com/openai/v1}
+      api-key: ${GROQ_API_KEY:}
+      model: ${RAG_LLM_MODEL:openai/gpt-oss-120b}
