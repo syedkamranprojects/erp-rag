@@ -23,4 +23,12 @@ public final class SecurityUtils {
             throw new AccessDeniedException("Token is not scoped to entity '" + pathEntityCode + "'");
         }
     }
+
+    /** Requires both entity-match and that the logged-in entity user has the ADMIN role. */
+    public static void requireEntityAdmin(String pathEntityCode) {
+        requireEntityMatch(pathEntityCode);
+        if (!"ADMIN".equals(currentEntityUser().role())) {
+            throw new AccessDeniedException("This action requires the entity ADMIN role");
+        }
+    }
 }

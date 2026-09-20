@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rag-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "rag-web", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}

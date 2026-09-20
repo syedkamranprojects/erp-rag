@@ -79,10 +79,13 @@ public class RagService {
 
     // ---- Entity-scoped users ----
 
-    public KnowledgeBaseUser createUser(String entityCode, String username, String rawPassword) {
+    public KnowledgeBaseUser createUser(String entityCode, String username, String rawPassword, String role) {
+        if (!"ADMIN".equals(role) && !"MEMBER".equals(role)) {
+            throw new IllegalArgumentException("role must be 'ADMIN' or 'MEMBER'");
+        }
         KnowledgeBase kb = getEntity(entityCode);
         String hash = PasswordHasher.hash(rawPassword);
-        return knowledgeBaseUserRepository.insert(kb.id(), username, hash, "MEMBER");
+        return knowledgeBaseUserRepository.insert(kb.id(), username, hash, role);
     }
 
     public KnowledgeBaseUser authenticate(String entityCode, String username, String rawPassword) {

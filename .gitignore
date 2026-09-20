@@ -10,6 +10,12 @@ data/
 rag-api/data/
 rag-mcp-server/data/
 
+# Frontend (rag-web)
+node_modules/
+dist/
+.env.local
+.env.*.local
+
 # IDE
 .idea/
 *.iml

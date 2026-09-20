@@ -15,6 +15,7 @@ public class RagProperties {
     private Db db = new Db();
     private Llm llm = new Llm();
     private Embedding embedding = new Embedding();
+    private Cors cors = new Cors();
 
     public Storage getStorage() {
         return storage;
@@ -50,6 +51,22 @@ public class RagProperties {
 
     public Embedding getEmbedding() {
         return embedding;
+    }
+
+    public Cors getCors() {
+        return cors;
+    }
+
+    public static class Cors {
+        private java.util.List<String> allowedOrigins = java.util.List.of("http://localhost:5173");
+
+        public java.util.List<String> getAllowedOrigins() {
+            return allowedOrigins;
+        }
+
+        public void setAllowedOrigins(java.util.List<String> allowedOrigins) {
+            this.allowedOrigins = allowedOrigins;
+        }
     }
 
     public static class Storage {

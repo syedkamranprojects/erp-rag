@@ -55,7 +55,7 @@ public class AdminEntityController {
     @PostMapping("/{entityCode}/users")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@PathVariable("entityCode") String entityCode, @Valid @RequestBody CreateUserRequest request) {
-        KnowledgeBaseUser user = ragService.createUser(entityCode, request.username(), request.password());
+        KnowledgeBaseUser user = ragService.createUser(entityCode, request.username(), request.password(), request.roleOrDefault());
         return UserResponse.from(user);
     }
 }

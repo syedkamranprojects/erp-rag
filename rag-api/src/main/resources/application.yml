@@ -30,6 +30,8 @@ rag:
     min-score: ${RAG_MIN_SCORE:0.6}
   chat-memory:
     max-messages: ${RAG_CHAT_MEMORY_MAX_MESSAGES:20}
+  cors:
+    allowed-origins: ${RAG_CORS_ALLOWED_ORIGINS:http://localhost:5173}
 
   db:
     host: ${PGVECTOR_HOST:localhost}
